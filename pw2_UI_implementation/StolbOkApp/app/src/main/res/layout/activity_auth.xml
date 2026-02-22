@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
@@ -27,6 +28,7 @@
         android:layout_marginTop="50dp"/>
 
     <ScrollView
+        android:id="@+id/content_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -45,7 +47,7 @@
                 android:id="@+id/logo_image"
                 android:layout_width="0dp"
                 android:layout_height="275dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="42dp"
                 android:src="@drawable/header_logo_image"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
