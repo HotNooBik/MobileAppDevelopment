@@ -8,4 +8,15 @@
     </style>
 
     <style name="Theme.StolbOkApp" parent="Base.Theme.StolbOkApp" />
+
+    <!-- Тема для всплывающего окна снизу экрана -->
+    <style name="BottomSheetDialogTheme" parent="Theme.Material3.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <!-- Убираем стандартный белый фон — нужен прозрачный, чтобы работали скруглённые углы из bg_bottom_sheet_rounded -->
+    <style name="BottomSheetStyle" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>

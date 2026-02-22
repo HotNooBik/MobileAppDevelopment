@@ -6,42 +6,15 @@
     android:background="@color/background">
 
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/content_layer"
-        android:layout_width="0dp"
+    <!-- Fragment Container -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_bar">
-
-        <!-- Fragment Container -->
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-<!--        &lt;!&ndash; Dark background beside pop-up windows &ndash;&gt;-->
-<!--        <View-->
-<!--            android:id="@+id/scrim"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="#80000000"-->
-<!--            android:alpha="0"-->
-<!--            android:visibility="gone" />-->
-
-<!--        &lt;!&ndash; Bottom sheet for pop-up windows &ndash;&gt;-->
-<!--        <FrameLayout-->
-<!--            android:id="@+id/bottom_sheet"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@drawable/bg_sheet_rounded"-->
-<!--            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"-->
-<!--            app:behavior_hideable="true"-->
-<!--            app:behavior_fitToContents="true"-->
-<!--            app:behavior_peekHeight="0dp" />-->
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
     <!-- Gradients -->

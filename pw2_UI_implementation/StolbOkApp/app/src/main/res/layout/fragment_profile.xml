@@ -291,7 +291,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Сб, 4 Апреля, 2025"
-                        android:textSize="18sp"
+                        android:textSize="24sp"
                         android:textStyle="bold"
                         android:textColor="@color/text_secondary"
                         app:layout_constraintStart_toStartOf="parent"

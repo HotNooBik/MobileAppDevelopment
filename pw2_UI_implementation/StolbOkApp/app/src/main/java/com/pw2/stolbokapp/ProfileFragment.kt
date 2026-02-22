@@ -24,9 +24,14 @@ class ProfileFragment : Fragment() {
         val exitBtn: ImageButton = view.findViewById(R.id.exitBtn)
         exitBtn.setOnClickListener {
             val intent = Intent(requireContext(), AuthActivity::class.java)
-            // Clear the back stack to prevent user from going back to the profile
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+        }
+
+        // При нажатии на карточку истории — открыть всплывающее окно
+        view.findViewById<View>(R.id.historyItem).setOnClickListener {
+            val sheet = HistoryDetailsBottomSheet()
+            sheet.show(parentFragmentManager, "history_details")
         }
     }
 }

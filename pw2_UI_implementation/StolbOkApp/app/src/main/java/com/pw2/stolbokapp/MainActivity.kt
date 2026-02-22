@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,11 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
     }
 
+    private fun dismissBottomSheet() {
+        (supportFragmentManager.findFragmentByTag("history_details") as? BottomSheetDialogFragment)
+            ?.dismiss()
+    }
+
     private fun setupNavigation() {
         val navCalendar = findViewById<LinearLayout>(R.id.nav_calendar)
         val navPeaks = findViewById<LinearLayout>(R.id.nav_peaks)
@@ -32,21 +38,25 @@ class MainActivity : AppCompatActivity() {
         val navProfile = findViewById<LinearLayout>(R.id.nav_profile)
 
         navCalendar.setOnClickListener {
-            // loadFragment(CalendarFragment()) // Create this fragment later
+            dismissBottomSheet()
+            // loadFragment(CalendarFragment())
             updateMenuUI(R.id.nav_calendar)
         }
 
         navPeaks.setOnClickListener {
-            // loadFragment(PeaksFragment()) // Create this fragment later
+            dismissBottomSheet()
+            // loadFragment(PeaksFragment())
             updateMenuUI(R.id.nav_peaks)
         }
 
         navGuide.setOnClickListener {
-            // loadFragment(GuideFragment()) // Create this fragment later
+            dismissBottomSheet()
+            // loadFragment(GuideFragment())
             updateMenuUI(R.id.nav_guide)
         }
 
         navProfile.setOnClickListener {
+            dismissBottomSheet()
             loadFragment(ProfileFragment())
             updateMenuUI(R.id.nav_profile)
         }
