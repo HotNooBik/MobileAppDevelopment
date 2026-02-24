@@ -16,11 +16,9 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // TODO: change to Calendar
-        // Load default fragment (e.g., Profile)
         if (savedInstanceState == null) {
-            loadFragment(ProfileFragment())
-            updateMenuUI(R.id.nav_profile)
+            loadFragment(CalendarFragment())
+            updateMenuUI(R.id.nav_calendar)
         }
 
         setupNavigation()
@@ -39,19 +37,19 @@ class MainActivity : AppCompatActivity() {
 
         navCalendar.setOnClickListener {
             dismissBottomSheet()
-            // loadFragment(CalendarFragment())
+            loadFragment(CalendarFragment())
             updateMenuUI(R.id.nav_calendar)
         }
 
         navPeaks.setOnClickListener {
             dismissBottomSheet()
-            // loadFragment(PeaksFragment())
+            loadFragment(PeaksFragment())
             updateMenuUI(R.id.nav_peaks)
         }
 
         navGuide.setOnClickListener {
             dismissBottomSheet()
-            // loadFragment(GuideFragment())
+            loadFragment(GuideFragment())
             updateMenuUI(R.id.nav_guide)
         }
 
@@ -68,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    private fun updateMenuUI(selectedId: Int) {
+    fun updateMenuUI(selectedId: Int) {
         // Reset all icons and text colors to default
         resetMenuItem(R.id.icon_calendar, R.id.text_calendar, R.drawable.ic_menu_calendar_off)
         resetMenuItem(R.id.icon_peaks, R.id.text_peaks, R.drawable.ic_menu_peaks_off)

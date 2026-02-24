@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginTop="52dp"
-                android:src="@drawable/header_mini_logo_image"
+                android:src="@drawable/img_header_mini_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +47,7 @@
                 android:layout_width="140dp"
                 android:layout_height="140dp"
                 android:layout_marginTop="140dp"
-                android:src="@drawable/profile_avatar_image"
+                android:src="@drawable/img_profile_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -271,6 +271,7 @@
                 android:paddingHorizontal="16dp"
                 android:paddingTop="16dp"
                 android:clipToPadding="false"
+                android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@+id/tabsDivider">
 
                 <!-- History Item -->
@@ -283,8 +284,7 @@
                     android:layout_marginBottom="12dp"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    >
+                    android:foreground="?attr/selectableItemBackground">
 
                     <TextView
                         android:id="@+id/tvHistoryDate"
@@ -312,7 +312,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/history_image_1"
+                            android:src="@drawable/img_history_1"
                             android:scaleType="centerCrop"
                             android:contentDescription="@null" />
                     </androidx.cardview.widget.CardView>
@@ -337,13 +337,82 @@
 
             </LinearLayout>
 
+            <!-- Plans Content -->
+            <LinearLayout
+                android:id="@+id/plansContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp"
+                android:clipToPadding="false"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/tabsDivider">
+
+                <!-- Plans Item -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/plansItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_profile_tile"
+                    android:padding="0dp"
+                    android:layout_marginBottom="19dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground">
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/bg_awesome_day"
+                        android:layout_marginStart="11dp"
+                        android:layout_marginVertical="11dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvPlansDate"
+                        app:layout_constraintEnd_toStartOf="@+id/tvPlansDate"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvPlansDate" />
+
+                    <TextView
+                        android:id="@+id/tvPlansDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Сб, 16 Мая, 2026"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/view"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Plan item unloaded 1 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_profile_tile"
+                    android:backgroundTint="#D9D9D9"
+                    android:layout_marginBottom="19dp"/>
+
+                <!-- Plan item unloaded 2 -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_profile_tile"
+                    android:backgroundTint="#D9D9D9"
+                    android:layout_marginBottom="19dp"/>
+
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
     <!-- FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
+        android:id="@+id/addHistoryBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"

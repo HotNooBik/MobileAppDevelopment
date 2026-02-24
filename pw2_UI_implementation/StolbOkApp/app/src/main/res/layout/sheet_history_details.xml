@@ -45,8 +45,7 @@
         android:id="@+id/tabsDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/stroke_dark"
-        android:layout_marginBottom="14dp"/>
+        android:background="@color/stroke_dark"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -66,6 +65,7 @@
                 android:paddingEnd="16dp"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
+                android:layout_marginTop="14dp"
                 android:clipToPadding="false">
 
                 <LinearLayout
@@ -87,7 +87,7 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@null"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/history_image_1" />
+                            android:src="@drawable/img_history_1" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -102,7 +102,7 @@
                             android:layout_height="match_parent"
                             android:contentDescription="@null"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/history_image_2" />
+                            android:src="@drawable/img_history_2" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -113,7 +113,7 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@drawable/history_image_3"
+                            android:src="@drawable/img_history_3"
                             android:scaleType="centerCrop"
                             android:contentDescription="@null" />
                     </androidx.cardview.widget.CardView>
