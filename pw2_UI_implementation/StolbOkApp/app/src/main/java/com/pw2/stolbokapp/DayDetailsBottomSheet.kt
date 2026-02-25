@@ -185,24 +185,39 @@ class DayDetailsBottomSheet : BottomSheetDialogFragment() {
     private fun getStolbyPhotoRes(season: Season, weather: Weather): Int {
         return when (season) {
             Season.WINTER -> when (weather) {
-                Weather.SUNNY -> R.drawable.img_peak_perviy   // заглушка
-                Weather.SNOWY -> R.drawable.img_peak_perviy_2 // заглушка
-                else -> R.drawable.img_peak_perviy_3          // заглушка
+                Weather.SUNNY -> R.drawable.img_day_winter_sunny
+                Weather.PARTLY -> R.drawable.img_day_winter_partly
+                Weather.SNOWY -> R.drawable.img_day_winter_snowy
+                else -> R.drawable.img_day_winter
             }
             Season.SPRING -> when (weather) {
-                Weather.SUNNY -> R.drawable.img_peak_lvinie_vorota    // заглушка
-                Weather.WEAK_RAIN -> R.drawable.img_peak_lvinie_vorota_2 // заглушка
-                else -> R.drawable.img_peak_lvinie_vorota_3           // заглушка
+                Weather.SUNNY -> R.drawable.img_day_spring_sunny
+                Weather.CLOUDY -> R.drawable.img_day_spring_cloudy
+                Weather.SNOWY -> R.drawable.img_day_spring_snowy
+                Weather.WEAK_RAIN -> R.drawable.img_day_spring_weak_rain
+                Weather.RAINY -> R.drawable.img_day_spring_rainy
+                Weather.FOG -> R.drawable.img_day_spring_fog
+                Weather.THUNDER -> R.drawable.img_day_spring_thunder
+                else -> R.drawable.img_day_spring_partly
             }
             Season.SUMMER -> when (weather) {
-                Weather.SUNNY -> R.drawable.img_peak_perya    // заглушка
-                Weather.THUNDER -> R.drawable.img_peak_perya_2 // заглушка
-                else -> R.drawable.img_peak_perya_3            // заглушка
+                Weather.SUNNY -> R.drawable.img_day_summer_sunny
+                Weather.CLOUDY -> R.drawable.img_day_summer_cloudy
+                Weather.WEAK_RAIN -> R.drawable.img_day_summer_weak_rain
+                Weather.RAINY -> R.drawable.img_day_summer_rainy
+                Weather.FOG -> R.drawable.img_day_summer_fog
+                Weather.THUNDER -> R.drawable.img_day_summer_thunder
+                else -> R.drawable.img_day_summer_partly
             }
             Season.AUTUMN -> when (weather) {
-                Weather.SUNNY -> R.drawable.img_peak_perviy_2  // заглушка
-                Weather.RAINY -> R.drawable.img_peak_perviy_3  // заглушка
-                else -> R.drawable.img_peak_perviy             // заглушка
+                Weather.SUNNY -> R.drawable.img_day_autumn_sunny
+                Weather.CLOUDY -> R.drawable.img_day_autumn_cloudy
+                Weather.SNOWY -> R.drawable.img_day_autumn_snowy
+                Weather.WEAK_RAIN -> R.drawable.img_day_autumn_weak_rain
+                Weather.RAINY -> R.drawable.img_day_autumn_rainy
+                Weather.FOG -> R.drawable.img_day_autumn_fog
+                Weather.THUNDER -> R.drawable.img_day_autumn_thunder
+                else -> R.drawable.img_day_autumn_partly
             }
         }
     }
