@@ -37,7 +37,8 @@
             android:layout_height="20dp"
             android:src="@drawable/ic_magnifier"
             android:contentDescription="@null"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="10dp"
+            />
 
         <EditText
             android:id="@+id/searchPeaks"
@@ -47,14 +48,21 @@
             android:hint="@string/peaks_search_hint"
             android:autofillHints=""
             android:textSize="16sp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary"
+            android:textColor="@color/white"
+            android:textColorHint="#B0C0AE"
             android:background="@android:color/transparent"
             android:singleLine="true"
             android:imeOptions="actionSearch"
             android:inputType="text" />
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:background="@color/stroke_dark" />
 
     <!-- Peaks list -->
     <androidx.recyclerview.widget.RecyclerView

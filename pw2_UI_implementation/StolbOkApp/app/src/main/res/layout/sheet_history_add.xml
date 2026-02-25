@@ -169,7 +169,7 @@
                             android:background="@android:color/transparent"
                             android:hint="Введите название Столба..."
                             android:textColor="@color/white"
-                            android:textColorHint="#AAFFFFFF"
+                            android:textColorHint="#D9FFDE"
                             android:textSize="15sp"
                             android:inputType="text"
                             android:imeOptions="actionSearch"

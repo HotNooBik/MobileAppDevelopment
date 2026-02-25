@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/bad_day_light" />
+            <corners android:radius="10dp" />
+            <stroke android:width="5dp" android:color="@color/bad_day" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <gradient android:angle="0" android:startColor="#20000000" android:centerColor="#00000000" android:endColor="#00000000" android:centerX="0.3" android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <gradient android:angle="90" android:startColor="#20000000" android:centerColor="#00000000" android:endColor="#00000000" android:centerX="0.3" android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <gradient android:angle="180" android:startColor="#20000000" android:centerColor="#00000000" android:endColor="#00000000" android:centerX="0.3" android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <gradient android:angle="270" android:startColor="#20000000" android:centerColor="#00000000" android:endColor="#00000000" android:centerX="0.3" android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

@@ -29,4 +29,12 @@
 
     <color name="bad_day">#FFAE2929</color>
     <color name="bad_day_light">#FFFFE6E5</color>
+
+    <color name="temp_31">#EF5350</color>
+    <color name="temp_30">#FFC107</color>
+    <color name="temp_20">#a3dc38</color>
+    <color name="temp_10">#4CAF50</color>
+    <color name="temp_0">#00BCD4</color>
+    <color name="temp_m_10">#2196F3</color>
+    <color name="temp_m_20">#3F51B5</color>
 </resources>

@@ -1,0 +1,15 @@
+Для запуска тестового приложения можно использовать уже собранный apk-файл, лежащий по пути: `.\pw2\StolbOkApp\app\build\outputs\apk\debug\app-debug.ap`k
+
+Или можно собрать apk с помощью gradle:
+
+**Шаг 1)** Откройте терминал и перейдите в корневую папку проекта ***StolbOK*** (там, где лежат файлы **`build.gradle`, `settings.gradle`, **папка **`app` **и скрипт* **`gradlew`**):
+
+`cd путь/к/вашему/проекту`
+
+**Шаг 2)** Выполните команду:
+
+**Windows: `./gradlew.bat assembleDebug`**
+
+**macOS / Linux: `./gradlew assembleDebug`**
+
+**Шаг 3)** После успешного завершения сборки (статус `BUILD SUCCESSFUL`), APK-файл будет находиться по следующему пути: `app/build/outputs/apk/debug/app-debug.apk`. Собранный apk можете запустить в эмуляторе или на подключенном телефоне в режиме

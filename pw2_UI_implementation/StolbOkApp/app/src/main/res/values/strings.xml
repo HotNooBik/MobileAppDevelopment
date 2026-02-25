@@ -5,7 +5,7 @@
     <string name="tab_seasons">Сезоны</string>
     <string name="guide_logo_desc">Логотип</string>
     <string name="guide_close_desc">Закрыть</string>
-    <string name="peaks_search_hint">Найти Столб</string>
+    <string name="peaks_search_hint">Найти Столб...</string>
     <string name="peaks_placeholder_name">Какой-то</string>
     <string name="peaks_placeholder_desc">Сякой-то</string>
     <string name="peak_label_description">Описание:</string>
