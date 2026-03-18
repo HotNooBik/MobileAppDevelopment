@@ -174,6 +174,15 @@ interface HikeDao {
     @Query("DELETE FROM hikes")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM hikes WHERE hikeId = :hikeId")
+    suspend fun deleteHikeById(hikeId: Long)
+
+    @Query("DELETE FROM hike_photos WHERE hikeId = :hikeId")
+    suspend fun deletePhotosByHikeId(hikeId: Long)
+
+    @Query("DELETE FROM HikePeakCrossRef WHERE hikeId = :hikeId")
+    suspend fun deletePeakRefsByHikeId(hikeId: Long)
+
     @Transaction
     suspend fun addHike(hike: HikeEntity, peakIds: List<Int>, photoUris: List<String>) {
         val hikeId = insertHike(hike)
@@ -182,6 +191,19 @@ interface HikeDao {
         insertPeakRefs(refs)
 
         val photos = photoUris.map { HikePhotoEntity(hikeId = hikeId, uri = it) }
+        insertPhotos(photos)
+    }
+
+    @Transaction
+    suspend fun updateHike(hike: HikeEntity, peakIds: List<Int>, photoUris: List<String>) {
+        insertHike(hike)
+        deletePeakRefsByHikeId(hike.hikeId)
+        deletePhotosByHikeId(hike.hikeId)
+
+        val refs = peakIds.map { HikePeakCrossRef(hike.hikeId, it) }
+        insertPeakRefs(refs)
+
+        val photos = photoUris.map { HikePhotoEntity(hikeId = hike.hikeId, uri = it) }
         insertPhotos(photos)
     }
 }

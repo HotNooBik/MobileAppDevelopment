@@ -39,7 +39,7 @@ class ProfileHistoryDetailsBottomSheet : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Устанавливаем тему: прозрачный фон под окном, чтобы работали скруглённые углы
+        // Set the theme to transparent background under the window so that the rounded corners work
         setStyle(STYLE_NORMAL, R.style.BottomSheetDialogTheme)
 
         hikeId = arguments?.getLong(ARG_HIKE_ID) ?: -1L
@@ -57,7 +57,7 @@ class ProfileHistoryDetailsBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Нажатие на крестик — закрыть окно
+        // Clicking on the cross closes the window
         view.findViewById<ImageButton>(R.id.imageButton).setOnClickListener {
             dismiss()
         }
@@ -65,6 +65,32 @@ class ProfileHistoryDetailsBottomSheet : BottomSheetDialogFragment() {
         if (hikeId != -1L) {
             loadHikeDetails(view)
         }
+
+        view.findViewById<android.widget.Button>(R.id.btnDelete).setOnClickListener {
+            showDeleteConfirmation()
+        }
+
+        view.findViewById<android.widget.Button>(R.id.btnEdit).setOnClickListener {
+             dismiss()
+             ProfileHistoryAddBottomSheet.newInstance(hikeId)
+                 .show(parentFragmentManager, "history_edit")
+        }
+    }
+
+    private fun showDeleteConfirmation() {
+        android.app.AlertDialog.Builder(requireContext())
+            .setTitle("Удаление похода")
+            .setMessage("Вы уверены, что хотите удалить этот поход?")
+            .setPositiveButton("Удалить") { _, _ ->
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        db.hikeDao().deleteHikeById(hikeId)
+                    }
+                    dismiss()
+                }
+            }
+            .setNegativeButton("Отмена", null)
+            .show()
     }
 
     private fun loadHikeDetails(view: View) {

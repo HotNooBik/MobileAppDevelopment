@@ -22,7 +22,7 @@ import java.util.Calendar
 
 class ProfileFragment : Fragment() {
 
-    // Отслеживаем активную вкладку
+    // Tracking the active tab
     private var isHistoryTabActive = true
     private lateinit var db: AppDatabase
     private lateinit var profileHistoryAdapter: ProfileHistoryAdapter
@@ -87,14 +87,14 @@ class ProfileFragment : Fragment() {
              }
         }
 
-        // Кнопка выхода
+        // Exit button
         view.findViewById<ImageButton>(R.id.exitBtn).setOnClickListener {
             val intent = Intent(requireContext(), AuthActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
-        // Элементы вкладок
+        // Tab elements
         val tabHistory = view.findViewById<LinearLayout>(R.id.tabHistory)
         val tabPlans = view.findViewById<LinearLayout>(R.id.tabPlans)
         val tabHistoryText = tabHistory.getChildAt(0) as TextView
@@ -102,19 +102,18 @@ class ProfileFragment : Fragment() {
         val tabPlansText = tabPlans.getChildAt(0) as TextView
         val tabPlansIndicator = tabPlans.getChildAt(1) as View
 
-        // Контент вкладок
+        // Tabs Content
         val historyContent = view.findViewById<LinearLayout>(R.id.historyContent)
         val plansContent = view.findViewById<LinearLayout>(R.id.plansContent)
 
         // FAB
         val fab = view.findViewById<FloatingActionButton>(R.id.addHistoryBtn)
 
-        // Функция переключения вкладок
+        // Tab switching feature
         fun switchTab(toHistory: Boolean) {
             isHistoryTabActive = toHistory
             val activeColor = ContextCompat.getColor(requireContext(), R.color.brand_primary)
             val inactiveColor = ContextCompat.getColor(requireContext(), R.color.text_primary).let {
-                // 50% прозрачность
                 android.graphics.Color.argb(128,
                     android.graphics.Color.red(it),
                     android.graphics.Color.green(it),
@@ -122,7 +121,7 @@ class ProfileFragment : Fragment() {
             }
 
             if (toHistory) {
-                // Активируем вкладку История
+                // Activate the History tab
                 tabHistoryText.setTextColor(activeColor)
                 tabHistoryIndicator.setBackgroundColor(activeColor)
                 tabPlansText.setTextColor(inactiveColor)
@@ -130,7 +129,7 @@ class ProfileFragment : Fragment() {
                 historyContent.visibility = View.VISIBLE
                 plansContent.visibility = View.GONE
             } else {
-                // Активируем вкладку Запланировано
+                // Activate the Scheduled tab
                 tabPlansText.setTextColor(activeColor)
                 tabPlansIndicator.setBackgroundColor(activeColor)
                 tabHistoryText.setTextColor(inactiveColor)
@@ -140,11 +139,11 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        // Обработчики нажатий на вкладки
+        // Tab click handlers
         tabHistory.setOnClickListener { switchTab(true) }
         tabPlans.setOnClickListener { switchTab(false) }
 
-        // FAB — открывает нужное окно в зависимости от активной вкладки
+        // FAB — opens the required window depending on the active tab
         fab.setOnClickListener {
             if (isHistoryTabActive) {
                 ProfileHistoryAddBottomSheet().show(parentFragmentManager, "history_add")
@@ -153,12 +152,12 @@ class ProfileFragment : Fragment() {
                     .replace(R.id.fragment_container, CalendarFragment())
                     .addToBackStack(null)
                     .commit()
-                // Подсветить пункт меню "Календарь" в MainActivity
+                // Highlight the "Calendar" menu item in MainActivity
                 (requireActivity() as? MainActivity)?.updateMenuUI(R.id.nav_calendar)
             }
         }
 
-        // Установить начальное состояние (История активна)
+        // Set initial state (History active)
         switchTab(true)
     }
 

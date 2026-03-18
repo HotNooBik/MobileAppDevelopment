@@ -31,24 +31,51 @@ class ProfileHistoryAddBottomSheet : BottomSheetDialogFragment() {
     private var selectedDateMillis: Long = MaterialDatePicker.todayInUtcMilliseconds()
     private val selectedPeakIds = mutableSetOf<Int>()
     private val selectedPhotoUris = mutableListOf<String>()
+    private var hikeId: Long = -1L
+
+    companion object {
+        private const val ARG_HIKE_ID = "hike_id"
+        fun newInstance(hikeId: Long = -1L): ProfileHistoryAddBottomSheet {
+            val fragment = ProfileHistoryAddBottomSheet()
+            if (hikeId != -1L) {
+                val args = Bundle()
+                args.putLong(ARG_HIKE_ID, hikeId)
+                fragment.arguments = args
+            }
+            return fragment
+        }
+    }
 
     // Pick image launcher
     private val pickImagesLauncher = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
         if (uris.isNotEmpty()) {
-            // Take persistable permission if possible (not strictly needed for transient intent but good practice)
-            // But with GetMultipleContents, we get temporary access usually.
-            // Saving URI string to DB means we expect it to persist.
-            // For real apps, copying the file to app storage is better.
-            // For this assignment, we use the URI directly.
             uris.forEach { uri ->
-                try {
-                   requireContext().contentResolver.takePersistableUriPermission(uri, android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                } catch (e: Exception) {
-                    // Ignore if not supported
+                val savedUri = saveImageToInternalStorage(uri)
+                if (savedUri != null) {
+                    selectedPhotoUris.add(savedUri.toString())
                 }
-                selectedPhotoUris.add(uri.toString())
             }
             updatePhotoList()
+        }
+    }
+
+    private fun saveImageToInternalStorage(uri: Uri): Uri? {
+        return try {
+            val contentResolver = requireContext().contentResolver
+            val inputStream = contentResolver.openInputStream(uri) ?: return null
+            val fileName = "hike_photo_${System.currentTimeMillis()}_${(0..1000).random()}.jpg"
+            val file = java.io.File(requireContext().filesDir, fileName)
+            val outputStream = java.io.FileOutputStream(file)
+
+            inputStream.use { input ->
+                outputStream.use { output ->
+                    input.copyTo(output)
+                }
+            }
+            Uri.fromFile(file)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 
@@ -59,6 +86,11 @@ class ProfileHistoryAddBottomSheet : BottomSheetDialogFragment() {
         setStyle(STYLE_NORMAL, R.style.BottomSheetDialogTheme)
         // Initialize DB
         db = AppDatabase.getDatabase(requireContext())
+
+        // Get hike ID from arguments if available
+        arguments?.getLong(ARG_HIKE_ID)?.let { id ->
+            hikeId = id
+        }
     }
 
     override fun onCreateView(
@@ -72,16 +104,16 @@ class ProfileHistoryAddBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Кнопка закрытия
+        // Close button
         view.findViewById<ImageButton>(R.id.imageButton).setOnClickListener {
             dismiss()
         }
 
-        // Поле отображения выбранной даты
+        // Display field for the selected date
         val dateInput = view.findViewById<TextView>(R.id.dateInput)
         updateDateLabel(dateInput, selectedDateMillis)
 
-        // Контейнер-кнопка выбора даты — открывает DatePicker по нажатию
+        // Date Picker Container Button - Opens the DatePicker on click
         view.findViewById<ConstraintLayout>(R.id.datePickerContainer).setOnClickListener {
             showDatePicker(dateInput)
         }
@@ -108,9 +140,27 @@ class ProfileHistoryAddBottomSheet : BottomSheetDialogFragment() {
         photosContainer = view.findViewById(R.id.photosContainer)
         updatePhotoList()
 
-        // --- Save Button ---
-        view.findViewById<View>(R.id.sign_in_button).setOnClickListener {
-            saveHike(view)
+        // --- Buttons Setup ---
+        val btnAdd = view.findViewById<View>(R.id.sign_in_button)
+        val editContainer = view.findViewById<LinearLayout>(R.id.editButtonsContainer)
+        val btnSave = view.findViewById<View>(R.id.btnSave)
+        val btnCancel = view.findViewById<View>(R.id.btnCancel)
+
+        if (hikeId != -1L) {
+            // Edit Mode
+            view.findViewById<TextView>(R.id.textView).text = "Редактировать поход"
+            btnAdd.visibility = View.GONE
+            editContainer.visibility = View.VISIBLE
+
+            loadHikeDataForEdit(view)
+
+            btnSave.setOnClickListener { saveHike() }
+            btnCancel.setOnClickListener { dismiss() }
+        } else {
+            // Add Mode
+            btnAdd.visibility = View.VISIBLE
+            editContainer.visibility = View.GONE
+            btnAdd.setOnClickListener { saveHike() }
         }
     }
 
@@ -221,17 +271,18 @@ class ProfileHistoryAddBottomSheet : BottomSheetDialogFragment() {
         val card = LayoutInflater.from(context).inflate(R.layout.item_photo_card, photosContainer, false) as CardView
         val imageView = card.findViewById<ImageView>(R.id.photoImage)
 
-        imageView.setImageURI(Uri.parse(uriString))
+        try {
+            imageView.setImageURI(Uri.parse(uriString))
+        } catch (e: Exception) {
+            imageView.setImageResource(android.R.drawable.ic_menu_report_image)
+        }
 
-        // Optional: click to remove?
         card.setOnClickListener {
              selectedPhotoUris.remove(uriString)
              updatePhotoList()
         }
         return card
     }
-
-    // ...
 
     private fun showDatePicker(dateInput: TextView) {
         val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -253,13 +304,37 @@ class ProfileHistoryAddBottomSheet : BottomSheetDialogFragment() {
         dateInput.text = formatted.replaceFirstChar { it.uppercase() }
     }
 
-    private fun saveHike(view: View) {
-        val commentInput = view.getRootView().findViewById<EditText>(R.id.commentInput) // Adjust finding ID
-        // view is the button. getRootView or find from fragment view.
-        // Actually 'view' in onViewCreated is the fragment view.
-        // Here 'view' is button.
+    private fun loadHikeDataForEdit(view: View) {
+        lifecycleScope.launch {
+            val hikeDetails = withContext(Dispatchers.IO) {
+                db.hikeDao().getHikeById(hikeId)
+            }
 
-        val comment = (this.view?.findViewById<EditText>(R.id.commentInput))?.text?.toString() ?: ""
+            if (hikeDetails != null) {
+                // Date
+                selectedDateMillis = hikeDetails.hike.date
+                updateDateLabel(view.findViewById(R.id.dateInput), selectedDateMillis)
+
+                // Comment
+                view.findViewById<EditText>(R.id.commentInput).setText(hikeDetails.hike.comment)
+
+                // Peaks
+                selectedPeakIds.clear()
+                hikeDetails.peaks.forEach { selectedPeakIds.add(it.peakId) }
+                // Re-populate peaks list to show selection
+                populatePeaksList(view.findViewById(R.id.peaksList), allPeaksForList)
+
+                // Photos
+                selectedPhotoUris.clear()
+                hikeDetails.photos.forEach { selectedPhotoUris.add(it.uri) }
+                updatePhotoList()
+            }
+        }
+    }
+
+    private fun saveHike() {
+        val commentInput = this.view?.findViewById<EditText>(R.id.commentInput)
+        val comment = commentInput?.text?.toString() ?: ""
 
         if (selectedPeakIds.isEmpty()) {
             Toast.makeText(context, "Выберите хотя бы один столб", Toast.LENGTH_SHORT).show()
@@ -268,20 +343,22 @@ class ProfileHistoryAddBottomSheet : BottomSheetDialogFragment() {
 
         lifecycleScope.launch {
             val hike = HikeEntity(
+                hikeId = if (hikeId != -1L) hikeId else 0,
                 date = selectedDateMillis,
                 comment = comment
             )
 
             withContext(Dispatchers.IO) {
-                db.hikeDao().addHike(
-                    hike,
-                    selectedPeakIds.toList(),
-                    selectedPhotoUris
-                )
+                if (hikeId != -1L) {
+                    db.hikeDao().updateHike(hike, selectedPeakIds.toList(), selectedPhotoUris)
+                } else {
+                    db.hikeDao().addHike(hike, selectedPeakIds.toList(), selectedPhotoUris)
+                }
             }
 
             withContext(Dispatchers.Main) {
-                Toast.makeText(context, "Поход добавлен!", Toast.LENGTH_SHORT).show()
+                val msg = if (hikeId != -1L) "Поход обновлен!" else "Поход добавлен!"
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

@@ -85,11 +85,11 @@ class CalendarDayDetailsBottomSheet : BottomSheetDialogFragment() {
         val stolbyStatus = StolbyStatus.entries[args.getInt(ARG_STOLBY_STATUS)]
         val season = Season.entries[args.getInt(ARG_SEASON)]
 
-        // Дата
+        // Date
         val tvDate = view.findViewById<TextView>(R.id.tvDayDate)
         tvDate.text = "$dayOfWeek, $dayNumber $monthStr"
 
-        // Статус дня
+        // Day status
         val tvStatus = view.findViewById<TextView>(R.id.tvDayStatus)
         val (statusText, statusBg) = when (status) {
             DayStatus.AWESOME -> "Идеальный день" to R.drawable.bg_badge_awesome
@@ -100,7 +100,7 @@ class CalendarDayDetailsBottomSheet : BottomSheetDialogFragment() {
         tvStatus.text = statusText
         tvStatus.background = ContextCompat.getDrawable(requireContext(), statusBg)
 
-        // Закладка
+        // Bookmark
         val ivBookmark = view.findViewById<ImageView>(R.id.ivBookmark)
         var bookmarked = isBookmarkedArg
         ivBookmark.setImageResource(
@@ -136,10 +136,10 @@ class CalendarDayDetailsBottomSheet : BottomSheetDialogFragment() {
             }
         }
 
-        // Температура
+        // Temperature
         val tvTemperature = view.findViewById<TextView>(R.id.tvTemperature)
         tvTemperature.text = "${temperature}°C"
-        // Цвет иконки термометра зависит от температуры
+        // The color of the thermometer icon depends on the temperature
         val ivThermometer = view.findViewById<ImageView>(R.id.ivThermometer)
         val thermoColor = when {
             temperature < -20 -> R.color.temp_m_20
@@ -152,14 +152,14 @@ class CalendarDayDetailsBottomSheet : BottomSheetDialogFragment() {
         }
         ivThermometer.setColorFilter(ContextCompat.getColor(requireContext(), thermoColor))
 
-        // Погода
+        // Weather
         val tvWeather = view.findViewById<TextView>(R.id.tvWeather)
         val ivWeatherIcon = view.findViewById<ImageView>(R.id.ivWeatherIcon)
         val (weatherText, weatherIcon) = getWeatherTextAndIcon(weather)
         tvWeather.text = weatherText
         ivWeatherIcon.setImageResource(weatherIcon)
 
-        // Клещевая активность
+        // Tick activity
         val tvTick = view.findViewById<TextView>(R.id.tvTickActivity)
         val (tickText, tickBg) = when (tickActivity) {
             TickActivity.NONE -> "нет" to R.drawable.bg_badge_awesome
@@ -170,7 +170,7 @@ class CalendarDayDetailsBottomSheet : BottomSheetDialogFragment() {
         tvTick.text = tickText
         tvTick.background = ContextCompat.getDrawable(requireContext(), tickBg)
 
-        // Посещаемость
+        // Stolby Attendance
         val tvAttendance = view.findViewById<TextView>(R.id.tvAttendance)
         val (attendanceText, attendanceBg) = when (attendance) {
             Attendance.LOW -> "малая" to R.drawable.bg_badge_awesome
@@ -180,7 +180,7 @@ class CalendarDayDetailsBottomSheet : BottomSheetDialogFragment() {
         tvAttendance.text = attendanceText
         tvAttendance.background = ContextCompat.getDrawable(requireContext(), attendanceBg)
 
-        // Статус Столбов
+        // Stolby status
         val tvStolbyStatus = view.findViewById<TextView>(R.id.tvStolbyStatus)
         val (stolbyText, stolbyBg) = when (stolbyStatus) {
             StolbyStatus.OPEN -> "открыто" to R.drawable.bg_badge_awesome
@@ -190,7 +190,7 @@ class CalendarDayDetailsBottomSheet : BottomSheetDialogFragment() {
         tvStolbyStatus.text = stolbyText
         tvStolbyStatus.background = ContextCompat.getDrawable(requireContext(), stolbyBg)
 
-        // Картинка столбов
+        // Stolby photo
         val ivStolbyPhoto = view.findViewById<ImageView>(R.id.ivStolbyPhoto)
         val photoRes = getStolbyPhotoRes(season, weather)
         if (photoRes != 0) {

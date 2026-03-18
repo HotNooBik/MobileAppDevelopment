@@ -458,7 +458,8 @@
                 android:id="@+id/sign_in_button"
                 android:layout_width="match_parent"
                 android:layout_height="62dp"
-                android:layout_marginVertical="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginHorizontal="16dp"
                 android:background="@drawable/bg_button_primary"
                 android:text="Добавить"
@@ -468,6 +469,47 @@
                 android:fontFamily="sans-serif-medium"
                 android:clickable="true"
                 android:focusable="true" />
+
+            <!-- Edit Buttons Container (Hidden by default) -->
+            <LinearLayout
+                android:id="@+id/editButtonsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginHorizontal="16dp"
+                android:visibility="gone"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_height="62dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_button_primary"
+                    android:text="Сохранить"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-medium"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnCancel"
+                    android:layout_width="0dp"
+                    android:layout_height="62dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_button_primary"
+                    android:backgroundTint="#D32F2F"
+                    android:text="Отменить"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-medium"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

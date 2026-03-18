@@ -13,17 +13,17 @@ import kotlinx.coroutines.launch
 
 class CalendarFragment : Fragment() {
 
-    // Текущий день (заглушка — 1 мая, TODO: логика определения будет реализована позже)
+    // Current day (placeholder - May 1, TODO: the logic for determining will be implemented later)
     private val currentDayMonth = 5
     private val currentDayNumber = 1
 
     private lateinit var db: AppDatabase
     private var bookmarkedDays: List<PlanEntity> = emptyList()
 
-    // Данные календаря: ключ — номер месяца (1..12), значение — список дней
+    // Calendar data: key is month number (1..12), value is list of days
     private val calendarData: Map<Int, List<CalendarDay>> = CalendarRepository.calendarData
 
-    // Первый день недели каждого месяца в 2025 году (0=Пн, 6=Вс)
+    // First day of the week of each month in 2025 (0=Mon, 6=Sun)
     private val monthFirstDayOffset = mapOf(
         1 to 2, 2 to 5, 3 to 5, 4 to 1, 5 to 3, 6 to 6,
         7 to 1, 8 to 4, 9 to 0, 10 to 2, 11 to 5, 12 to 0
@@ -34,7 +34,7 @@ class CalendarFragment : Fragment() {
         7 to 31, 8 to 31, 9 to 30, 10 to 31, 11 to 30, 12 to 31
     )
 
-    private var selectedMonth = 5 // Май по умолчанию
+    private var selectedMonth = 5 // May by default
 
     private val monthChipIds = listOf(
         R.id.chipJan, R.id.chipFeb, R.id.chipMar, R.id.chipApr,
@@ -100,15 +100,15 @@ class CalendarFragment : Fragment() {
         val days = calendarData[currentDayMonth]
         val todayData = days?.find { it.dayNumber == currentDayNumber } ?: return
 
-        // Месяц
+        // Month
         val tvMonth = view.findViewById<TextView>(R.id.tvCurrentMonth)
         tvMonth.text = todayData.month.replaceFirstChar { it.uppercase() }
 
-        // Номер дня
+        // Day number
         val tvDayNumber = view.findViewById<TextView>(R.id.tvCurrentDayNumber)
         tvDayNumber.text = todayData.dayNumber.toString()
 
-        // Фон большого дня
+        // Big day (on top) background
         val bigBgRes = when (todayData.status) {
             DayStatus.AWESOME -> R.drawable.bg_day_awesome_big
             DayStatus.GOOD -> R.drawable.bg_day_good_big
@@ -117,7 +117,7 @@ class CalendarFragment : Fragment() {
         }
         tvDayNumber.background = ContextCompat.getDrawable(requireContext(), bigBgRes)
 
-        // Статус дня
+        // Day status
         val tvStatus = view.findViewById<TextView>(R.id.tvCurrentDayStatus)
         tvStatus.text = when (todayData.status) {
             DayStatus.AWESOME -> "Идеальный день"
@@ -126,13 +126,13 @@ class CalendarFragment : Fragment() {
             DayStatus.BAD -> "Ужасный день"
         }
 
-        // Погода
+        // Weather
         val tvWeather = view.findViewById<TextView>(R.id.tvCurrentWeather)
         val (weatherText, weatherIcon) = getWeatherTextAndIcon(todayData.weather)
         tvWeather.text = weatherText
         tvWeather.setCompoundDrawablesWithIntrinsicBounds(0, 0, weatherIcon, 0)
 
-        // Клик на блок «Сегодня» — открывает BottomSheet
+        // Clicking on the Today block opens the BottomSheet
         val currentDayLayout = view.findViewById<View>(R.id.constraintLayout)
         currentDayLayout.setOnClickListener {
             CalendarDayDetailsBottomSheet.newInstance(todayData)
@@ -186,7 +186,7 @@ class CalendarFragment : Fragment() {
         val firstDayOffset = monthFirstDayOffset[month] ?: 0
         val days = calendarData[month]
 
-        val fixedRows = 6 // Всегда 6 строк
+        val fixedRows = 6 // Always 6 lines
         var dayCounter = 1
 
         for (row in 0 until fixedRows) {
@@ -207,7 +207,7 @@ class CalendarFragment : Fragment() {
                 val dotBookmark = cellView.findViewById<View>(R.id.dotBookmark)
 
                 if (cellIndex < firstDayOffset || dayCounter > totalDays) {
-                    // Пустая ячейка
+                    // Empty cell
                     tvDayNumber.text = ""
                     tvDayNumber.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_day_none)
                     dotBookmark.visibility = View.INVISIBLE

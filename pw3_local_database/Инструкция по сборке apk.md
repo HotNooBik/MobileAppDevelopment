@@ -1,4 +1,4 @@
-Для запуска тестового приложения можно использовать уже собранный apk-файл, лежащий по пути: `.\pw2\StolbOkApp\app\build\outputs\apk\debug\app-debug.ap`k
+Для запуска тестового приложения можно использовать уже собранный apk-файл, лежащий по пути: `.\pw3\StolbOkApp\app\build\outputs\apk\debug\app-debug.apk`
 
 Или можно собрать apk с помощью gradle:
 

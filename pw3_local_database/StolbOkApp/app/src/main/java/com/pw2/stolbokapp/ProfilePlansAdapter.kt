@@ -63,8 +63,7 @@ class ProfilePlansAdapter(
 
                 statusText.text = "Статус неизвестен"
                 statusText.background = ContextCompat.getDrawable(itemView.context, R.drawable.bg_badge_not_good) // Greyish fallback?
-                statusText.visibility = View.GONE // Hide status if unknown? Or show unknown.
-                // Or just show fallback
+                statusText.visibility = View.GONE // Hide status if unknown
             }
 
             itemView.setOnClickListener { onItemClick(plan, dayData) }

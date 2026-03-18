@@ -58,7 +58,6 @@ class ProfileHistoryAdapter(
                 try {
                     // Check if it's a resource URI (starts with android.resource://)
                     // or content/file URI. parse() handles both generally if structure is correct.
-                    // If it's pure integer ID string... probably not.
                     if (uriStr.startsWith("android.resource")) {
                          imagePreview.setImageURI(Uri.parse(uriStr))
                     } else {

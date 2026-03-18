@@ -92,8 +92,6 @@ class PeaksFragment : Fragment() {
 
                 // Re-filter currently loaded list
                 // Ideally this should query DB, but for small list, memory filter is fine
-                // Wait, logic inside collect overrides displayedPeaks.
-                // We need to keep a copy of 'all DB peaks' to filter against.
                 updateListFromFilter(query)
             }
             override fun afterTextChanged(s: Editable?) {}
@@ -111,8 +109,6 @@ class PeaksFragment : Fragment() {
         adapter.notifyDataSetChanged()
     }
 
-    // Need to update the collection logic to store to currentDbPeaks
-    // Update onViewCreated...
     class PeaksAdapter(
         private val items: List<PeakItem>,
         private val onItemClick: (PeakItem) -> Unit
