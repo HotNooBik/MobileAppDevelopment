@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+
+    <!-- Mini logo -->
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginTop="52dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/img_header_mini_logo"
+        android:contentDescription="@string/guide_logo_desc" />
+
+    <!-- Search bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_search_bar"
+        android:gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_magnifier"
+            android:contentDescription="@null"
+            android:layout_marginEnd="10dp"
+            />
+
+        <EditText
+            android:id="@+id/searchPeaks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/peaks_search_hint"
+            android:autofillHints=""
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textColorHint="#B0C0AE"
+            android:background="@android:color/transparent"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="14dp"
+        android:background="@color/stroke_dark" />
+
+    <!-- Peaks list -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/peaksRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
+
+</LinearLayout>

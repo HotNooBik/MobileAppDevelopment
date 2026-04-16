@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="background">#FCF9F7</color>
+
+    <color name="brand_primary">#3B754A</color>
+
+    <color name="text_primary">#242C26</color>
+    <color name="text_secondary">#3A3F3A</color>
+
+    <color name="gradient_start">#00D9D9D9</color>
+    <color name="gradient_end">#803B754A</color>
+
+    <color name="gradient_start_menu">#00D9D9D9</color>
+    <color name="gradient_end_menu">#333F7F4F</color>
+
+    <color name="stroke_dark">#FFCAC4D0</color>
+
+    <color name="awesome_day">#FF65AE29</color>
+    <color name="awesome_day_light">#FFE4F3C8</color>
+
+    <color name="good_day">#FFC0CC42</color>
+    <color name="good_day_light">#FFEDF0D1</color>
+
+    <color name="not_good_day">#FFF99E0F</color>
+    <color name="not_good_day_light">#FFF7F2D5</color>
+
+    <color name="bad_day">#FFAE2929</color>
+    <color name="bad_day_light">#FFFFE6E5</color>
+
+    <color name="temp_31">#EF5350</color>
+    <color name="temp_30">#FFC107</color>
+    <color name="temp_20">#a3dc38</color>
+    <color name="temp_10">#4CAF50</color>
+    <color name="temp_0">#00BCD4</color>
+    <color name="temp_m_10">#2196F3</color>
+    <color name="temp_m_20">#3F51B5</color>
+
+    <color name="stroke_light">#E0E0E0</color>
+</resources>
