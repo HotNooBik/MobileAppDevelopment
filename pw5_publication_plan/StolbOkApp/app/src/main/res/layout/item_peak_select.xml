@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="14dp"
+    android:orientation="horizontal"
+    android:background="?attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/peakName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Peak Name"
+        android:textColor="@color/text_primary"
+        android:textSize="16sp" />
+
+    <CheckBox
+        android:id="@+id/peakCheckbox"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:button="@null"
+        android:background="@drawable/selector_checkbox"
+        android:focusable="false"
+        android:clickable="false" />
+</LinearLayout>
+
